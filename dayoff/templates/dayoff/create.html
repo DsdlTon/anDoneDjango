@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Day Off Request</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+</head>
+<body>
+<div class="container">
+    <h1 class="center title">แบบฟอร์มขอลางาน</h1>
+
+    {% if error %}
+        <div class="alert alert-danger center container narrow">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    {% if success %}
+        <div class="alert alert-success center container narrow">
+            {{ success }}
+        </div>
+    {% endif %}
+
+    <form
+            class="create jumbotron narrow"
+            method="POST"
+            action="{% url 'create-dayoff' %}"
+    >
+        {% csrf_token %}
+
+        <div class="form-group">
+            <p class="text-left">เนื่องจาก</p>
+            {{ form.reason }}
+        </div>
+        <div class="form-group">
+            <p class="text-left">ประเภท</p>
+            {{ form.type }}
+        </div>
+        <div class="form-group">
+            <p class="text-left">ตั้งแต่วันที่</p>
+            {{ form.date_start }}
+        </div>
+        <div class="form-group">
+            <p class="text-left">ถึงวันที่</p>
+            {{ form.date_end }}
+        </div>
+
+        <div class="center group">
+            <input class="btn btn-success" type="submit" value="Submit" />
+            <a href="{% url 'index' %}">
+                <input class="btn btn-danger" type="button" value="Back" />
+            </a>
+        </div>
+    </form>
+</div>
+<style>
+    .center {
+        text-align: center;
+    }
+</style>
+</body>
+</html>
